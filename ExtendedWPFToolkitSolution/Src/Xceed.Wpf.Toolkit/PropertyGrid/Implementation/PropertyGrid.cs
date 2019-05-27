@@ -726,6 +726,40 @@ namespace Xceed.Wpf.Toolkit.PropertyGrid
 
     #endregion //ShowAdvancedOptions
 
+    #region ShowCategoryButtons
+
+    public static readonly DependencyProperty ShowPageButtonsProperty = DependencyProperty.Register( "ShowPageButtons", typeof( bool ), typeof( PropertyGrid ), new UIPropertyMetadata( true ) );
+    public bool ShowPageButtons
+    {
+      get
+      {
+        return ( bool )GetValue( ShowPageButtonsProperty );
+      }
+      set
+      {
+        SetValue( ShowPageButtonsProperty, value );
+      }
+    }
+
+    #endregion //ShowCategoryButtons
+
+    #region CategoryButtons
+
+    public static readonly DependencyProperty PageButtonsProperty = DependencyProperty.Register( "PageButtons", typeof( List<object> ), typeof( PropertyGrid ), new UIPropertyMetadata( new List<object>()/*, OnCategoryButtonsChanged*/ ) );
+    public List<object> PageButtons
+    {
+      get
+      {
+        return ( List<object> )GetValue( PageButtonsProperty );
+      }
+      set
+      {
+        SetValue( PageButtonsProperty, value );
+      }
+    }
+
+    #endregion //CategoryButtons
+
     #region ShowHorizontalScrollBar
 
     public static readonly DependencyProperty ShowHorizontalScrollBarProperty = DependencyProperty.Register( "ShowHorizontalScrollBar", typeof( bool ), typeof( PropertyGrid ), new UIPropertyMetadata( false ) );

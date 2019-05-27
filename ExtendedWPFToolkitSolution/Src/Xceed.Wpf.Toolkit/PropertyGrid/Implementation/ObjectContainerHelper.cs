@@ -141,18 +141,28 @@ namespace Xceed.Wpf.Toolkit.PropertyGrid
         return int.MaxValue;
 
       int order = int.MaxValue;
-        object selectedObject = SelectedObject;
-        CategoryOrderAttribute[] orderAttributes = ( selectedObject != null )
+      object selectedObject = SelectedObject;
+      CategoryOrderAttribute[] orderAttributes = null;
+
+      if( selectedObject is ICustomTypeDescriptor )
+      {
+        orderAttributes = ((ICustomTypeDescriptor)selectedObject).GetAttributes()
+          .Cast<Attribute>().Where(a => a is CategoryOrderAttribute).Cast<CategoryOrderAttribute>().ToArray();
+      }
+      else
+      {
+        orderAttributes = ( selectedObject != null )
           ? ( CategoryOrderAttribute[] )selectedObject.GetType().GetCustomAttributes( typeof( CategoryOrderAttribute ), true )
           : new CategoryOrderAttribute[ 0 ];
+      }
 
-        var orderAttribute = orderAttributes
-          .FirstOrDefault( ( a ) => object.Equals( a.CategoryValue, categoryValue ) );
+      var orderAttribute = orderAttributes
+        .FirstOrDefault( ( a ) => object.Equals( a.CategoryValue, categoryValue ) );
 
-        if( orderAttribute != null )
-        {
-          order = orderAttribute.Order;
-        }
+      if( orderAttribute != null )
+      {
+        order = orderAttribute.Order;
+      }
 
       return order;
     }

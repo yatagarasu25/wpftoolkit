@@ -914,7 +914,7 @@
                                 VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
                   <ContentControl.Content>
                     <MultiBinding Converter="{StaticResource PropertyItemEditorConverter}">
-                      <Binding Path="Editor" 
+                      <Binding Path="Editor"
                                RelativeSource="{RelativeSource TemplatedParent}" />
                       <Binding Path="IsReadOnly"
                                RelativeSource="{RelativeSource AncestorType={x:Type pg:PropertyGrid}}" />
@@ -1127,6 +1127,7 @@
                 <Grid.ColumnDefinitions>
                   <ColumnDefinition Width="Auto" />
                   <ColumnDefinition Width="*" />
+                  <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <Grid x:Name="sortButtonContainer"
                       Margin="4"
@@ -1198,6 +1199,37 @@
                     </Button>
                   </Grid>
                 </Border>
+
+                <Grid x:Name="pageButtonContainer"
+                      Grid.Column="2"
+                      Margin="4"
+                      Visibility="{Binding ShowPageButtons, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BooleanToVisibilityConverter}}">
+                  <ItemsControl Margin="1"
+                                ItemsSource="{Binding PageButtons, RelativeSource={RelativeSource TemplatedParent}}">
+                    <ItemsControl.ItemsPanel>
+                      <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"/>
+                      </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                      <DataTemplate>
+                        <RadioButton Command="{Binding Path=Command}"
+                                     CommandParameter="{Binding Path=DataContext, RelativeSource={RelativeSource Self}}"
+                                     GroupName="PageGroup"
+                                     IsChecked="{Binding Path=IsChecked}"
+                                     IsEnabled="{Binding Path=IsEnabled}"
+                                     VerticalAlignment="Center"
+                                     Style="{StaticResource OptionsToggleButtonStyle}"
+                                     ToolTip="{Binding Path=Tooltip}">
+                          <Image Source="{Binding Path=Icon}"
+                                 Width="16"
+                                 Height="16" >
+                          </Image>
+                        </RadioButton>
+                      </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                  </ItemsControl>
+                </Grid>
               </Grid>
 
               <Grid Grid.Row="2"
@@ -1290,6 +1322,9 @@
                            Property="Visibility"
                            Value="Collapsed" />
                 <Condition SourceName="sortButtonContainer"
+                           Property="Visibility"
+                           Value="Collapsed" />
+                <Condition SourceName="pageButtonContainer"
                            Property="Visibility"
                            Value="Collapsed" />
               </MultiTrigger.Conditions>

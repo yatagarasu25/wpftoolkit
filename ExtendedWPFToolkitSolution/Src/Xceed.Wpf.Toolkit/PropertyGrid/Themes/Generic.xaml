@@ -1246,6 +1246,7 @@
                 <Grid.ColumnDefinitions>
                   <ColumnDefinition Width="Auto" />
                   <ColumnDefinition Width="*" />
+                  <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <Grid x:Name="sortButtonContainer"
                       Margin="4"
@@ -1317,6 +1318,32 @@
                     </Button>
                   </Grid>
                 </Border>
+                <Grid x:Name="categoryButtonContainer"
+                      Grid.Column="2"
+                      Margin="4"
+                      Visibility="{Binding ShowCategoryButtons, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BooleanToVisibilityConverter}}">
+                  <StackPanel Orientation="Horizontal"
+                              Margin="1">
+                    <RadioButton IsChecked="{Binding IsCategorized, RelativeSource={RelativeSource TemplatedParent}}"
+                                 VerticalAlignment="Center"
+                                 Style="{StaticResource OptionsToggleButtonStyle}"
+                                 ToolTip="Categorized">
+                      <Image Source="./../Images/Categorize16.png"
+                             Width="16"
+                             Height="16" >
+                      </Image>
+                    </RadioButton>
+                    <RadioButton IsChecked="{Binding IsCategorized, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource InverseBoolConverter}, Mode=OneWay}"
+                                 VerticalAlignment="Center"
+                                 Style="{StaticResource OptionsToggleButtonStyle}"
+                                 ToolTip="Alphabetical">
+                      <Image Source="./../Images/SortAscending16.png"
+                             Width="16"
+                             Height="16" >
+                      </Image>
+                    </RadioButton>
+                  </StackPanel>
+                </Grid>
               </Grid>
 
               <Grid Grid.Row="2"
@@ -1409,6 +1436,9 @@
                            Property="Visibility"
                            Value="Collapsed" />
                 <Condition SourceName="sortButtonContainer"
+                           Property="Visibility"
+                           Value="Collapsed" />
+                <Condition SourceName="categoryButtonContainer"
                            Property="Visibility"
                            Value="Collapsed" />
               </MultiTrigger.Conditions>
