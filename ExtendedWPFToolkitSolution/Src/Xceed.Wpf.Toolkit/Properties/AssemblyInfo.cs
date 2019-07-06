@@ -112,9 +112,9 @@ using System.Windows.Markup;
 
 
 #pragma warning disable 1699
-[assembly: AssemblyDelaySign( false )]
-[assembly: AssemblyKeyFile( @"..\..\sn.snk" )]
-[assembly: AssemblyKeyName( "" )]
+//[assembly: AssemblyDelaySign( false )]
+//[assembly: AssemblyKeyFile( @"..\..\sn.snk" )]
+//[assembly: AssemblyKeyName( "" )]
 #pragma warning restore 1699
 
 
